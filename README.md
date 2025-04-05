@@ -1,5 +1,30 @@
 # SEMINARI JWT
 
+# 📌 Fonts de l'Exercici
+
+## 📂 Repositori
+🔗 [Repositori proporcionat per fer l'exercici]
+
+## 🎥 Videos Recomanats Per Aprendre Com Funciona JWT i Refresh Token
+
+## Presentació feta per els companys del seminari
+
+## 🤖 Assistència
+💡 **ChatGPT** per aclarir dubtes i obtenir explicacions addicionals.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Descripció
 Una API bàsica desenvolupada en Node.js amb TypeScript, utilitzant Express i Mongoose per a la gestió de dades en MongoDB. A més, s'inclou documentació amb Swagger.
 
