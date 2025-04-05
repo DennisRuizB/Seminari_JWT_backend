@@ -1,5 +1,5 @@
 import { encrypt, verified } from "../../utils/bcrypt.handle.js";
-import { generateToken } from "../../utils/jwt.handle.js";
+import { generateToken, generateRefreshToken } from "../../utils/jwt.handle.js";
 import User, { IUser } from "../users/user_models.js";
 import { Auth } from "./auth_model.js";
 import jwt from 'jsonwebtoken';
@@ -26,10 +26,13 @@ const loginUser = async ({ email, password }: Auth) => {
     if(!isCorrect) return "INCORRECT_PASSWORD";
 
     const token = generateToken(checkIs.email);
+    const refreshToken = generateRefreshToken(checkIs.id);
     const data = {
         token,
+        refreshToken,
         user: checkIs
     }
+    console.log(data);
     return data;
 };
 

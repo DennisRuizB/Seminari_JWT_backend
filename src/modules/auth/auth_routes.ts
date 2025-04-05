@@ -1,8 +1,43 @@
 // src/routes/user_routes.ts
 import express from 'express';
-import { registerCtrl, loginCtrl, googleAuthCtrl, googleAuthCallback } from "../auth/auth_controller.js";
+import { registerCtrl, loginCtrl, googleAuthCtrl, googleAuthCallback, refreshTokenHandler } from "../auth/auth_controller.js";
 
 const router = express.Router();
+
+
+/**
+ * @swagger
+ * /api/auth/refresh-token:
+ *   post:
+ *     summary: Genera un nuevo token de acceso
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 description: El token de actualización
+ *     responses:
+ *       200:
+ *         description: Nuevo token de acceso generado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 accessToken:
+ *                   type: string
+ *       400:
+ *         description: Token de actualización faltante
+ *       401:
+ *         description: Token de actualización inválido
+ */
+router.post("/auth/refreshToken", refreshTokenHandler);
+
 
 /**
  * @swagger

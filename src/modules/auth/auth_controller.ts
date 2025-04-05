@@ -1,5 +1,28 @@
 import { Request, Response } from "express";
 import { registerNewUser, loginUser, googleAuth } from "../auth/auth_service.js";
+import { refreshAccessToken } from "../../utils/jwt.handle.js";
+
+
+const refreshTokenHandler = async (req: Request, res: Response) => {
+    try {
+        const { refreshToken } = req.body;
+        if (!refreshToken) {
+            return res.status(400).json({ message: "Refresh token is required" });
+        }
+
+        const newAccessToken = refreshAccessToken(refreshToken);
+        console.log("Nuevo accessToken generado:", newAccessToken);
+        res.json({ accessToken: newAccessToken });
+    } catch (error: any) {
+        if (error.message === "REFRESH_TOKEN_EXPIRED") {
+            return res.status(403).json({ message: "Refresh token expired" }); // Código 403 para token expirado
+        }
+        if (error.message === "INVALID_REFRESH_TOKEN") {
+            return res.status(401).json({ message: "Invalid refresh token" }); // Código 401 para token inválido
+        }
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
 
 const registerCtrl = async ({body}: Request, res: Response) => {
     try{
@@ -83,4 +106,4 @@ const googleAuthCallback = async (req: Request, res: Response) => {
 };
 
 
-export { registerCtrl, loginCtrl,googleAuthCtrl, googleAuthCallback };
+export { registerCtrl, loginCtrl,googleAuthCtrl, googleAuthCallback, refreshTokenHandler };
